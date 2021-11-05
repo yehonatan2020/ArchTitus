@@ -34,7 +34,7 @@ echo "       Setup Language to US and set locale       "
 echo "-------------------------------------------------"
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
-timedatectl --no-ask-password set-timezone America/Chicago
+timedatectl --no-ask-password set-timezone Europe/London
 timedatectl --no-ask-password set-ntp 1
 localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_US.UTF-8"
 
@@ -61,10 +61,10 @@ PKGS=(
 'xorg-drivers'
 'xorg-xkill'
 'xorg-xinit'
-'xterm'
 'plasma-desktop' # KDE Load second
 'alsa-plugins' # audio plugins
 'alsa-utils' # audio utils
+'apparmor' #extra
 'ark' # compression
 'audiocd-kio' 
 'autoconf' # build
@@ -82,13 +82,12 @@ PKGS=(
 'breeze-gtk'
 'bridge-utils'
 'btrfs-progs'
-'celluloid' # video players
-'cmatrix'
-'code' # Visual Studio code
+'clementine' #extra
+'cpio' #extra
 'cronie'
 'cups'
+'devede'
 'dialog'
-'discover'
 'dolphin'
 'dosfstools'
 'dtc'
@@ -96,6 +95,8 @@ PKGS=(
 'egl-wayland'
 'exfat-utils'
 'extra-cmake-modules'
+'fakeroot' #extra
+'ffmpegthumbs' #extra
 'filelight'
 'flex'
 'fuse2'
@@ -103,50 +104,71 @@ PKGS=(
 'fuseiso'
 'gamemode'
 'gcc'
+'gedit' #extra
+'gedit-plugins' #extra
 'gimp' # Photo editing
 'git'
+'gnome-contacts'
+'gnome-weather'
 'gparted' # partition management
 'gptfdisk'
 'grub'
 'grub-customizer'
 'gst-libav'
+'gst-plugins-bad'
 'gst-plugins-good'
 'gst-plugins-ugly'
+'guake'
 'gwenview'
+'hardinfo'
+'handbrake'
 'haveged'
+'hplip'
 'htop'
+'inkscape'
 'iptables-nft'
 'jdk-openjdk' # Java 17
-'kate'
+'karchive' #extra
+'kauth' #extra
 'kcodecs'
+'kcompletion'
 'kcoreaddons'
-'kde-plasma-addons'
+'kde-gtk-config'
+'kdeplasma-addons'
+'kdialog' #extra
 'kinfocenter'
 'kscreen'
 'kvantum-qt5'
 'kde-gtk-config'
-'kitty'
 'konsole'
 'kscreen'
+'kwalletmanager' #extra
+'latte-dock'
 'layer-shell-qt'
+'libappindicator-gtk3'
 'libdvdcss'
 'libnewt'
 'libtool'
 'linux'
 'linux-firmware'
-'linux-headers'
+'linux-zen-headers'
+'linux-zen' #extra
 'lsof'
-'lutris'
+'lxtask' #extra
 'lzop'
 'm4'
 'make'
 'milou'
+'mono'
+'mplayer' #extra
+'mpv'
+'mtools' #extra
 'nano'
 'neofetch'
 'networkmanager'
 'ntfs-3g'
 'ntp'
-'okular'
+'obs-studio'
 'openbsd-netcat'
 'openssh'
 'os-prober'
@@ -154,44 +176,46 @@ PKGS=(
 'p7zip'
 'pacman-contrib'
 'patch'
-'picom'
 'pkgconf'
+'plasma-firewall'
 'plasma-nm'
+'plasma-pa'
 'powerdevil'
-'powerline-fonts'
 'print-manager'
 'pulseaudio'
 'pulseaudio-alsa'
 'pulseaudio-bluetooth'
 'python-notify2'
+'python-pip'
 'python-psutil'
 'python-pyqt5'
-'python-pip'
+'python-pyxdg' #extra
+'python-yaml'
 'qemu'
+'redshift' #extra
+'rpm' #extra
 'rsync'
 'sddm'
 'sddm-kcm'
-'snapper'
-'spectacle'
-'steam'
+#'simg2img' #removed
 'sudo'
 'swtpm'
-'synergy'
 'systemsettings'
+'telegram-desktop' #extra
 'terminus-font'
+'tlp' #extra
+'ttf-liberation' #extra
 'traceroute'
 'ufw'
+'unclutter' #extra
 'unrar'
 'unzip'
 'usbutils'
 'vim'
-'virt-manager'
-'virt-viewer'
 'wget'
 'which'
 'wine-gecko'
 'wine-mono'
-'winetricks'
 'xdg-desktop-portal-kde'
 'xdg-user-dirs'
 'zeroconf-ioslave'
@@ -240,13 +264,14 @@ echo "username=$username" >> ${HOME}/ArchTitus/install.conf
 fi
 if [ $(whoami) = "root"  ];
 then
-    useradd -m -G wheel,libvirt -s /bin/bash $username 
+    useradd -m $username 
 	passwd $username
 	cp -R /root/ArchTitus /home/$username/
+	echo "$username ALL=(ALL) ALL" >> /etc/sudoers
     chown -R $username: /home/$username/ArchTitus
 	read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
 else
-	echo "You are already a user proceed with aur installs"
+	echo "You are already a user. Proceed with AUR installs"
 fi
 
