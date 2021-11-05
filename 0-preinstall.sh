@@ -37,7 +37,6 @@ read DISK
 echo "THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK"
 read -p "are you sure you want to continue (Y/N):" formatdisk
 case $formatdisk in
-
 y|Y|yes|Yes|YES)
 echo "--------------------------------------"
 echo -e "\nFormatting disk...\n$HR"
@@ -66,7 +65,11 @@ mkfs.vfat -F32 -n "EFIBOOT" "${DISK}2"
 mkfs.ext4 -L "ROOT" "${DISK}3" -f
 mount -t ext4 "${DISK}3" /mnt
 fi
-
+ # mount target
+mount -t btrfs -o  -L ROOT /mnt
+mkdir /mnt/boot
+mkdir /mnt/boot/efi
+mount -t vfat -L EFIBOOT /mnt/boot/
 echo "--------------------------------------"
 echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
@@ -75,7 +78,6 @@ genfstab -U /mnt >> /mnt/etc/fstab
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-echo "--------------------------------------"
 
 echo "--------------------------------------"
 echo "-- Setting up SWAPFILE --"
