@@ -65,11 +65,30 @@ mkfs.vfat -F32 -n "EFIBOOT" "${DISK}2"
 mkfs.ext4 -L "ROOT" "${DISK}3" -f
 mount -t ext4 "${DISK}3" /mnt
 fi
- # mount target
-mount -t btrfs -o  -L ROOT /mnt
+ls /mnt | xargs 
+umount /mnt
+;;
+*)
+echo "Rebooting in 3 Seconds ..." && sleep 1
+echo "Rebooting in 2 Seconds ..." && sleep 1
+echo "Rebooting in 1 Second ..." && sleep 1
+reboot now
+;;
+esac
+
+# mount target
+mount -t ext4 -o -L ROOT /mnt
 mkdir /mnt/boot
 mkdir /mnt/boot/efi
 mount -t vfat -L EFIBOOT /mnt/boot/
+
+if ! grep -qs '/mnt' /proc/mounts; then
+    echo "Drive is not mounted can not continue"
+    echo "Rebooting in 3 Seconds ..." && sleep 1
+    echo "Rebooting in 2 Seconds ..." && sleep 1
+    echo "Rebooting in 1 Second ..." && sleep 1
+    reboot now
+fi
 echo "--------------------------------------"
 echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
