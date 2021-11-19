@@ -110,13 +110,10 @@ PKGS=(
 'git'
 'gnome-contacts'
 'gnome-weather'
-'gparted' # partition management
-'gptfdisk'
+'gparted' 
 'grub'
-'grub-customizer'
 'gst-libav'
 'gst-plugins-bad'
-'gst-plugins-good'
 'gst-plugins-ugly'
 'guake'
 'gwenview'
@@ -126,14 +123,12 @@ PKGS=(
 'hplip'
 'htop'
 'inkscape'
-'iptables-nft'
 'jdk-openjdk' # Java 17
 'karchive' #extra
 'kauth' #extra
 'kcodecs'
 'kcompletion'
 'kcoreaddons'
-'kde-gtk-config'
 'kdeplasma-addons'
 'kdialog' #extra
 'kinfocenter'
@@ -144,7 +139,6 @@ PKGS=(
 'kscreen'
 'kwalletmanager' #extra
 'latte-dock'
-'layer-shell-qt'
 'libappindicator-gtk3'
 'libdvdcss'
 'libnewt'
@@ -156,9 +150,7 @@ PKGS=(
 'lsof'
 'lxtask' #extra
 'lzop'
-'m4'
 'make'
-'milou'
 'mono'
 'mplayer' #extra
 'mpv'
@@ -175,8 +167,6 @@ PKGS=(
 'oxygen'
 'p7zip'
 'pacman-contrib'
-'patch'
-'pkgconf'
 'plasma-firewall'
 'plasma-nm'
 'plasma-pa'
@@ -257,21 +247,32 @@ elif lspci | grep -E "Integrated Graphics Controller"; then
     pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
 fi
 
-echo -e "\nDone!\n"
-if ! source install.conf; then
-	read -p "Please enter username:" username
-echo "username=$username" >> ${HOME}/ArchTitus/install.conf
-fi
-if [ $(whoami) = "root"  ];
-then
-    useradd -m $username 
-	passwd $username
-	cp -R /root/ArchTitus /home/$username/
-	echo "$username ALL=(ALL) ALL" >> /etc/sudoers
-    chown -R $username: /home/$username/ArchTitus
-	read -p "Please name your machine:" nameofmachine
-	echo $nameofmachine > /etc/hostname
+echo -ne "
+-------------------------------------------------------------------------
+                    Adding User
+-------------------------------------------------------------------------
+"
+if [ $(whoami) = "root"  ]; then
+    useradd -m -G wheel -s /bin/bash $username 
+# use chpasswd to enter $username:$password
+    echo "$username:$password" | chpasswd
+	cp -R /root/$SCRIPTHOME /home/$username/
+    chown -R $username: /home/$username/$SCRIPTHOME
+# enter $hostname to /etc/hostname
+	echo $hostname > /etc/hostname
 else
-	echo "You are already a user. Proceed with AUR installs"
+	echo "You are already a user proceed with aur installs"
 fi
+if [[ ${FS} == "luks" ]]; then
+# Making sure to edit mkinitcpio conf if luks is selected
+# add encrypt in mkinitcpio.conf before filesystems in hooks
+    sed -i 's/filesystems/encrypt filesystems/g' /etc/mkinitcpio.conf
+# making mkinitcpio with linux kernel
+    mkinitcpio -p linux
+fi
+echo -ne "
+-------------------------------------------------------------------------
+                    SYSTEM READY FOR 2-user.sh
+-------------------------------------------------------------------------
+"
 
