@@ -27,30 +27,30 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerleve
 ln -s "$HOME/zsh/.zshrc" $HOME/.zshrc
 
 PKGS=(
-#'beignet-git'
-#'btop'
+'beignet-git'
+'btop'
 #'brave-bin' # Brave Browser
-#'dxvk-bin' # DXVK DirectX to Vulcan
+'dxvk-bin' # DXVK DirectX to Vulcan
 'lightly-git'
-'lightlyshaders-git'
-#'lineageos-devel'
+#'lightlyshaders-git'
+'lineageos-devel'
 'microsoft-edge-dev-bin'
-#'nerd-fonts-complete'
-#'newflasher-git'
+'nerd-fonts-complete'
+'newflasher-git'
 #'noto-fonts-emoji'
-#'octopi-dev'
-#'octopi-notifier-frameworks'
-#'pacaur'
-#'pikaur'
+'octopi-dev'
+'octopi-notifier-frameworks'
+'pacaur'
+'pikaur'
 'papirus-icon-theme'
-#'ocs-url' # install packages from websites
+'ocs-url' # install packages from websites
 'sddm-nordic-theme-git'
-#'stacer'
-#'teamviewer'
+'stacer'
+'teamviewer'
 #'ttf-wps-fonts'
 #'wps-office'
-#'xperia-flashtool-git'
-#'youtube-dl'
+'xperia-flashtool-git'
+'youtube-dl'
 )
 
 for PKG in "${PKGS[@]}"; do
