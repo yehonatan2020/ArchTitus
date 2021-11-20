@@ -1,62 +1,71 @@
 #!/usr/bin/env bash
-#-------------------------------------------------------------------------
-#   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-#  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-#  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-#  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-#  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-#  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
-#-------------------------------------------------------------------------
+echo -ne "
+-------------------------------------------------------------------------
+   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
+  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
+  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
+  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
+  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
+  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
+-------------------------------------------------------------------------
+                    Automated Arch Linux Installer
+-------------------------------------------------------------------------
 
-echo -e "\nFINAL SETUP AND CONFIGURATION"
-echo "--------------------------------------"
-echo "-- GRUB EFI Bootloader Install&Check--"
-echo "--------------------------------------"
+Final Setup and Configurations
+GRUB EFI Bootloader Install & Check
+"
 if [[ -d "/sys/firmware/efi" ]]; then
-    grub-install --target=x86_64-efi --efi-directory=/boot ${DISK}
+    grub-install --efi-directory=/boot ${DISK}
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# ------------------------------------------------------------------------
-
-echo -e "\nEnabling Login Display Manager"
+echo -ne "
+-------------------------------------------------------------------------
+                    Enabling Login Display Manager
+-------------------------------------------------------------------------
+"
 systemctl enable sddm.service
-echo -e "\nSetup SDDM Theme"
+echo -ne "
+-------------------------------------------------------------------------
+                    Setting up SDDM Theme
+-------------------------------------------------------------------------
+"
 cat <<EOF > /etc/sddm.conf
 [Theme]
 Current=Nordic
 EOF
 
-# ------------------------------------------------------------------------
-echo "--------------------------------------"
-echo -e "\nEnabling essential services"
-echo "--------------------------------------"
+echo -ne "
+-------------------------------------------------------------------------
+                    Enabling Essential Services
+-------------------------------------------------------------------------
+"
 systemctl enable apparmor
-systemctl enable cups.service
-systemctl enable tlp
-systemctl enable bluetooth
 systemctl enable fstrim.timer
-systemctl enable NetworkManager.service
+systemctl enable bluetooth
+systemctl enable tlp
+systemctl enable cups
+systemctl enable NetworkManager
 
 sudo ln -s /usr/bin/paru /usr/bin/yay
 sudo rm -r /root/ArchTitus
 sudo rm -r /usr/bin/baloo*
 sudo rm -r /usr/lib/baloo*
 
-echo "
-###############################################################################
-# Cleaning
-###############################################################################
+echo -ne "
+-------------------------------------------------------------------------
+                    Cleaning 
+-------------------------------------------------------------------------
 "
 # Remove no password sudo rights
-sudo sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 # Add sudo rights
-sudo sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 
 # Replace in the same state
 cd $pwd
 echo "
 ###############################################################################
-# Done - Please Remove Installation Media and Reboot
+# Done - Please Eject Install Media and Reboot
 ###############################################################################
 "
