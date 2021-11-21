@@ -2,12 +2,13 @@
 
 <img src="https://i.imgur.com/YiNMnan.png" />
 
-This README contains the steps I do to install and configure a fully-functional Arch Linux installation containing a desktop environment, all the support packages (network, bluetooth, audio, printers, etc.), along with all my preferred applications and utilities. The shell scripts in this repo allow the entire process to be automated.)
+This README contains the all the steps to have a fully functional Arch Linux with KDE desktop, suited ideally for Android devs
 
 ---
 ## Create Arch ISO or Use Image
 
 Download ArchISO from <https://archlinux.org/download/> and put on a USB drive with [Etcher](https://www.balena.io/etcher/), [Ventoy](https://www.ventoy.net/en/index.html), or [Rufus](https://rufus.ie/en/)
+Or on linux you can use dd command
 
 If you don't want to build using this script I did create an image @ <https://www.christitus.com/arch-titus>
 
@@ -17,13 +18,13 @@ From initial Prompt type the following commands:
 
 ```
 pacman -Sy git
-git clone https://github.com/ChrisTitusTech/ArchTitus
+git clone https://github.com/yehonatan2020/ArchTitus
 cd ArchTitus
 ./archtitus.sh
 ```
 
 ### System Description
-This is completely automated arch install of the KDE desktop environment on arch using all the packages I use on a daily basis. 
+This is completely automated arch install of the KDE desktop environment on arch.
 
 ## Troubleshooting
 
