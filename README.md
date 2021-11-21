@@ -2,19 +2,17 @@
 
 <img src="https://i.imgur.com/YiNMnan.png" />
 
-This README contains the all the steps to have a fully functional Arch Linux with KDE desktop, suited ideally for Android devs
+This README contains all the steps to have a fully functional Arch Linux with KDE desktop, suited ideally for Android devs
 
 ---
 ## Create Arch ISO or Use Image
 
 Download ArchISO from <https://archlinux.org/download/> and put on a USB drive with [Etcher](https://www.balena.io/etcher/), [Ventoy](https://www.ventoy.net/en/index.html), or [Rufus](https://rufus.ie/en/)
-Or on linux you can use dd command
-
-If you don't want to build using this script I did create an image @ <https://www.christitus.com/arch-titus>
+or on linux you can use dd command
 
 ## Boot Arch ISO
 
-From initial Prompt type the following commands:
+From the initial prompt type the following commands:
 
 ```
 pacman -Sy git
