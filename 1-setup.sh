@@ -171,10 +171,6 @@ PKGS=(
 'libdvdcss'
 'libnewt'
 'libtool'
-'linux'
-'linux-firmware'
-'linux-zen-headers'
-'linux-zen' #extra
 'lld'
 'llvm'
 'lsof'
