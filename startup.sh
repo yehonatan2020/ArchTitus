@@ -14,6 +14,20 @@ echo -ne "
             Please select presetup settings for your system              
 ------------------------------------------------------------------------
 "
+#}
+#desktop () {
+#echo -ne "
+ #   Please Select your desktop environment you would like
+  #  1)      KDE
+   # 2)      Gnome
+  #  3)      Deepin
+#"
+#read Desktop
+#case $Desktop in
+#1) echo "Desktop=KDE" >> setup.conf;;
+#2) echo "Desktop=Gnome" >> setup.conf;;
+#3) 2) echo "Desktop=Deepin" >> setup.conf;;
+#esac
 }
 filesystem () {
 # This function will handle file systems. At this movement we are handling only
