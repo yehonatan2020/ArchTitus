@@ -115,7 +115,7 @@ PKGS=(
 'dtc'
 'efibootmgr' # EFI boot
 'egl-wayland'
-'exfat-utils'
+'exfatprogs'
 'extra-cmake-modules'
 'fakeroot' #extra
 'ffmpegthumbs' #extra
