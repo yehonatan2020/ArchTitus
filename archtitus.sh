@@ -1,5 +1,5 @@
 #!/bin/bash
-    setfont ter-v24b
+    setfont ter-v22b
     bash startup.sh
     bash 0-preinstall.sh
     arch-chroot /mnt /root/ArchTitus/1-setup.sh
