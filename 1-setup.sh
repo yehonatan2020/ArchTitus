@@ -1,45 +1,60 @@
 #!/usr/bin/env bash
-#-------------------------------------------------------------------------
-#   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-#  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-#  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-#  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-#  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-#  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
-#-------------------------------------------------------------------------
-echo "--------------------------------------"
-echo "--          Network Setup           --"
-echo "--------------------------------------"
+echo -ne "
+-------------------------------------------------------------------------
+   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
+  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
+  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
+  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
+  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
+  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
+-------------------------------------------------------------------------
+                    Automated Arch Linux Installer
+-------------------------------------------------------------------------
+"
+source setup.conf
+echo -ne "
+-------------------------------------------------------------------------
+                    Network Setup 
+-------------------------------------------------------------------------
+"
 pacman -S networkmanager dhclient --noconfirm --needed
 systemctl enable --now NetworkManager
-echo "-------------------------------------------------"
-echo "Setting up mirrors for optimal download          "
-echo "-------------------------------------------------"
+echo -ne "
+-------------------------------------------------------------------------
+                    Setting up mirrors for optimal download 
+-------------------------------------------------------------------------
+"
 pacman -S --noconfirm pacman-contrib curl
 pacman -S --noconfirm reflector rsync
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 
 nc=$(grep -c ^processor /proc/cpuinfo)
-echo "You have " $nc" cores."
-echo "-------------------------------------------------"
-echo "Changing the makeflags for "$nc" cores."
+echo -ne "
+-------------------------------------------------------------------------
+                    You have " $nc" cores. And
+			changing the makeflags for "$nc" cores. Aswell as
+				changing the compression settings.
+-------------------------------------------------------------------------
+"
 TOTALMEM=$(cat /proc/meminfo | grep -i 'memtotal' | grep -o '[[:digit:]]*')
 if [[  $TOTALMEM -gt 8000000 ]]; then
 sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$nc\"/g" /etc/makepkg.conf
 echo "Changing the compression settings for "$nc" cores."
 sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $nc -z -)/g" /etc/makepkg.conf
 fi
-echo "-------------------------------------------------"
-echo "       Setup Language to US and set locale       "
-echo "-------------------------------------------------"
+echo -ne "
+-------------------------------------------------------------------------
+                    Setup Language to US and set locale  
+-------------------------------------------------------------------------
+"
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
-timedatectl --no-ask-password set-timezone America/Chicago
+timedatectl --no-ask-password set-timezone ${timezone}
 timedatectl --no-ask-password set-ntp 1
 localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_US.UTF-8"
 
 # Set keymaps
-localectl --no-ask-password set-keymap us
+localectl --no-ask-password set-keymap ${keymap}
 
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
@@ -50,9 +65,11 @@ sed -i 's/^#Para/Para/' /etc/pacman.conf
 #Enable multilib
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy --noconfirm
-
-echo -e "\nInstalling Base System\n"
-
+echo -ne "
+-------------------------------------------------------------------------
+                    Installing Base System  
+-------------------------------------------------------------------------
+"
 PKGS=(
 'mesa' # Essential Xorg First
 'xorg'
@@ -61,16 +78,19 @@ PKGS=(
 'xorg-drivers'
 'xorg-xkill'
 'xorg-xinit'
-'xterm'
 'plasma-desktop' # KDE Load second
 'alsa-plugins' # audio plugins
 'alsa-utils' # audio utils
+'android-tools'
+'android-udev'
+'apparmor' #extra
 'ark' # compression
 'audiocd-kio' 
+'audit'
 'autoconf' # build
 'automake' # build
 'base'
-'bash-completion'
+'base-devel'
 'bind'
 'binutils'
 'bison'
@@ -82,20 +102,23 @@ PKGS=(
 'breeze-gtk'
 'bridge-utils'
 'btrfs-progs'
-'celluloid' # video players
-'cmatrix'
-'code' # Visual Studio code
+'ccache'
+'clang'
+'clementine' #extra
+'cpio' #extra
 'cronie'
 'cups'
+'devede'
 'dialog'
-'discover'
 'dolphin'
 'dosfstools'
 'dtc'
 'efibootmgr' # EFI boot
 'egl-wayland'
-'exfat-utils'
+'exfatprogs'
 'extra-cmake-modules'
+'fakeroot' #extra
+'ffmpegthumbs' #extra
 'filelight'
 'flex'
 'fuse2'
@@ -103,98 +126,120 @@ PKGS=(
 'fuseiso'
 'gamemode'
 'gcc'
+'gedit' #extra
+'gedit-plugins' #extra
 'gimp' # Photo editing
 'git'
-'gparted' # partition management
-'gptfdisk'
+'gnome-contacts'
+'gnome-screenshot'
+'gnome-weather'
+'gparted' 
 'grub'
-'grub-customizer'
 'gst-libav'
-'gst-plugins-good'
+'gst-plugins-bad'
 'gst-plugins-ugly'
+'guake'
 'gwenview'
+'hardinfo'
+'handbrake'
 'haveged'
+'hplip'
 'htop'
-'iptables-nft'
+'inetutils'
+'inkscape'
 'jdk-openjdk' # Java 17
-'kate'
+'jq'
+'karchive' #extra
+'kauth' #extra
 'kcodecs'
+'kcompletion'
 'kcoreaddons'
-'kdeplasma-addons'
 'kde-gtk-config'
+'kdeplasma-addons'
+'kdialog' #extra
+'kgamma5'
+'khotkeys'
 'kinfocenter'
-'kscreen'
-'kvantum-qt5'
-'kitty'
 'konsole'
 'kscreen'
-'layer-shell-qt'
+'kvantum-qt5'
+'kwalletmanager' #extra
+'kwayland-integration'
+'kwrited'
+'latte-dock'
+'libappindicator-gtk3'
 'libdvdcss'
 'libnewt'
 'libtool'
-'linux'
-'linux-firmware'
-'linux-headers'
+'lld'
+'llvm'
 'lsof'
-'lutris'
+'lxtask' #extra
+'lzip'
 'lzop'
-'m4'
 'make'
-'milou'
+'mono'
+'mplayer' #extra
+'mpv'
+'mtools' #extra
 'nano'
 'neofetch'
 'networkmanager'
 'ntfs-3g'
 'ntp'
-'okular'
+'obs-studio'
 'openbsd-netcat'
 'openssh'
 'os-prober'
 'oxygen'
 'p7zip'
 'pacman-contrib'
-'patch'
-'picom'
-'pkgconf'
-'plasma-meta'
+'pacmanlogviewer'
+'patchelf'
+'plasma-firewall'
 'plasma-nm'
+'plasma-pa'
+'plasma-thunderbolt'
 'powerdevil'
-'powerline-fonts'
 'print-manager'
+'psensor'
 'pulseaudio'
 'pulseaudio-alsa'
 'pulseaudio-bluetooth'
+'python2-distlib'
 'python-notify2'
+'python-pip'
 'python-psutil'
 'python-pyqt5'
-'python-pip'
+'python-pyxdg' #extra
+'python-yaml'
 'qemu'
+'redshift' #extra
+'rpm' #extra
 'rsync'
 'sddm'
 'sddm-kcm'
-'snapper'
-'spectacle'
-'steam'
+#'simg2img' #removed
 'sudo'
 'swtpm'
-'synergy'
 'systemsettings'
+'telegram-desktop' #extra
 'terminus-font'
+'tlp' #extra
+'ttf-liberation' #extra
 'traceroute'
 'ufw'
+'unclutter' #extra
 'unrar'
 'unzip'
 'usbutils'
-'vim'
-'virt-manager'
-'virt-viewer'
 'wget'
 'which'
 'wine-gecko'
 'wine-mono'
-'winetricks'
 'xdg-desktop-portal-kde'
 'xdg-user-dirs'
+'xsane'
 'zeroconf-ioslave'
 'zip'
 'zsh'
@@ -207,23 +252,27 @@ for PKG in "${PKGS[@]}"; do
     sudo pacman -S "$PKG" --noconfirm --needed
 done
 
-#
+echo -ne "
+-------------------------------------------------------------------------
+                    Installing Microcode
+-------------------------------------------------------------------------
+"
 # determine processor type and install microcode
 # 
-proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
-case "$proc_type" in
-	GenuineIntel)
-		print "Installing Intel microcode"
-		pacman -S --noconfirm intel-ucode
-		proc_ucode=intel-ucode.img
-		;;
-	AuthenticAMD)
-		print "Installing AMD microcode"
-		pacman -S --noconfirm amd-ucode
-		proc_ucode=amd-ucode.img
-		;;
-esac	
-
+if lscpu | grep -E "GenuineIntel"; then
+    print "Installing Intel microcode"
+    pacman -S --noconfirm intel-ucode
+    proc_ucode=intel-ucode.img
+elif lscpu | grep -E "AuthenticAMD"; then
+    print "Installing AMD microcode"
+    pacman -S --noconfirm amd-ucode
+    proc_ucode=amd-ucode.img
+fi
+echo -ne "
+-------------------------------------------------------------------------
+                    Installing Graphics Drivers
+-------------------------------------------------------------------------
+"
 # Graphics Drivers find and install
 if lspci | grep -E "NVIDIA|GeForce"; then
     pacman -S nvidia --noconfirm --needed
@@ -231,7 +280,9 @@ if lspci | grep -E "NVIDIA|GeForce"; then
 elif lspci | grep -E "Radeon"; then
     pacman -S xf86-video-amdgpu --noconfirm --needed
 elif lspci | grep -E "Integrated Graphics Controller"; then
-    pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
+    pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils lib32-mesa --needed --noconfirm
+elif lspci | grep -E "Intel Corporation UHD"; then
+    pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils lib32-mesa --needed --noconfirm
 fi
 
 echo -e "\nDone!\n"
@@ -241,13 +292,17 @@ echo "username=$username" >> ${HOME}/ArchTitus/install.conf
 fi
 if [ $(whoami) = "root"  ];
 then
-    useradd -m -G wheel,libvirt -s /bin/bash $username 
+    useradd -m -G wheel -s /bin/bash $username 
 	passwd $username
 	cp -R /root/ArchTitus /home/$username/
     chown -R $username: /home/$username/ArchTitus
 	read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
 else
-	echo "You are already a user proceed with aur installs"
+	echo -ne "
+-------------------------------------------------------------------------
+                    SYSTEM READY FOR 2-user.sh
+-------------------------------------------------------------------------
+"
 fi
 
