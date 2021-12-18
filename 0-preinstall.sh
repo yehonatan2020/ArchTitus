@@ -176,7 +176,6 @@ echo -ne "
     swapon /mnt/opt/swap/swapfile
     #The line below is written to /mnt/ but doesn't contain /mnt/, since it's just / for the sysytem itself.
     echo "/opt/swap/swapfile	none	swap	defaults	0	0" >> /mnt/etc/fstab #Add swap to fstab, so it KEEPS working after installation.
-fi
 echo -ne "
 -------------------------------------------------------------------------
                     SYSTEM READY FOR 1-setup.sh
