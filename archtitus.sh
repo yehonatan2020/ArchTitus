@@ -1,4 +1,6 @@
 #!/bin/bash
+# Find the name of the folder the scripts are in
+export SCRIPTHOME="$(basename -- $PWD)"
     setfont ter-v22b
     bash startup.sh
     bash 0-preinstall.sh
