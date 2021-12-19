@@ -11,4 +11,4 @@ export SCRIPTHOME="$(basename -- $PWD)"
    arch-chroot /mnt /root/$SCRIPTHOME/$SCRIPTHOME/1-setup.sh
     source /mnt/root/$SCRIPTHOME/install.conf
     arch-chroot /mnt /usr/bin/runuser -u $username -- /home/$username/$SCRIPTHOME/$SCRIPTHOME/2-user.sh
-    arch-chroot /mnt /root/$SCRIPTHOME/3-post-setup.sh
+    arch-chroot /mnt /root/$SCRIPTHOME/$SCRIPTHOME/3-post-setup.sh
