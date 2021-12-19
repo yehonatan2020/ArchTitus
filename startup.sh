@@ -118,17 +118,7 @@ Please enter disk to work on: (example /dev/sda):
 read option
 echo "DISK=$option" >> setup.conf
 }
-userinfo () {
-echo -ne "Please enter username: "
-read username
-echo "username=$username" >> setup.conf
-echo -ne "Please enter your password: "
-read password
-echo "password=$password" >> setup.conf
-echo -ne "Please enter your hostname: "
-read hostname
-echo "hostname=$hostname" >> setup.conf
-}
+
 # More features in future
 # language (){}
 rm -rf setup.conf &>/dev/null
