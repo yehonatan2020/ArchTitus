@@ -9,12 +9,13 @@ echo -ne "
   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 -------------------------------------------------------------------------
                     Automated Arch Linux Installer
+                    SCRIPTHOME: $SCRIPTHOME
 -------------------------------------------------------------------------
 
 Installing AUR Software
 "
 # You can solve users running this script as root with this and then doing the same for the next for statement. However I will leave this up to you.
-
+source ~/$SCRIPTHOME/setup.conf
 echo "CLONING: PARU"
 cd ~
 git clone "https://aur.archlinux.org/paru.git"
@@ -58,9 +59,9 @@ for PKG in "${PKGS[@]}"; do
 done
 
 export PATH=$PATH:~/.local/bin
-cp -r $HOME/ArchTitus/dotfiles/* $HOME/.config/
+cp -r ~/$SCRIPTHOME/dotfiles/* ~/.config/
 pip install konsave
-konsave -i $HOME/ArchTitus/kde.knsv
+konsave -i ~/$SCRIPTHOME/kde.knsv
 sleep 1
 konsave -a kde
 
