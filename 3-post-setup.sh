@@ -15,7 +15,7 @@ echo -ne "
 Final Setup and Configurations
 GRUB EFI Bootloader Install & Check
 "
-source /root/$SCRIPTHOME/setup.conf
+source /root/$SCRIPTHOME/$SCRIPTHOME/setup.conf
 if [[ -d "/sys/firmware/efi" ]]; then
     grub-install --efi-directory=/boot ${DISK}
     # set kernel parameter for decrypting the drive
@@ -36,9 +36,9 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 cat <<EOF > /etc/sddm.conf
-[Theme]
-Current=Nordic
-EOF
+ [Theme]
+ Current=Nordic
+ EOF
 
 echo -ne "
 -------------------------------------------------------------------------
