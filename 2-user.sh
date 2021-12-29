@@ -15,7 +15,7 @@ echo -ne "
 Installing AUR Software
 "
 # You can solve users running this script as root with this and then doing the same for the next for statement. However I will leave this up to you.
-source ~/$SCRIPTHOME/setup.conf
+source ~/$SCRIPTHOME/$SCRIPTHOME/setup.conf
 echo "CLONING: PARU"
 cd ~
 git clone "https://aur.archlinux.org/paru.git"
