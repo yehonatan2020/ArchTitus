@@ -289,9 +289,9 @@ elif grep -E "Intel Corporation UHD" <<< ${gpu_type}; then
 fi
 
 echo -e "\nDone!\n"
-if ! source install.conf; then
+if ! source setup.conf; then
 	read -p "Please enter username:" username
-echo "username=$username" >> ${HOME}/ArchTitus/install.conf
+echo "username=$username" >> ${HOME}/ArchTitus/setup.conf
 fi
 if [ $(whoami) = "root"  ];
 then
