@@ -9,10 +9,10 @@ echo -ne "
   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 -------------------------------------------------------------------------
                     Automated Arch Linux Installer
-                      SCRIPTHOME: $SCRIPTHOME
+                        SCRIPTHOME: ArchTitus
 -------------------------------------------------------------------------
 "
-source /root/$SCRIPTHOME/$SCRIPTHOME/setup.conf
+source /root/ArchTitus/setup.conf
 echo -ne "
 -------------------------------------------------------------------------
                     Network Setup 
@@ -40,7 +40,6 @@ echo -ne "
 TOTALMEM=$(cat /proc/meminfo | grep -i 'memtotal' | grep -o '[[:digit:]]*')
 if [[  $TOTALMEM -gt 8000000 ]]; then
 sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$nc\"/g" /etc/makepkg.conf
-echo "Changing the compression settings for "$nc" cores."
 sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $nc -z -)/g" /etc/makepkg.conf
 fi
 echo -ne "
@@ -50,216 +49,39 @@ echo -ne "
 "
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
-timedatectl --no-ask-password set-timezone ${timezone}
+timedatectl --no-ask-password set-timezone ${TIMEZONE}
 timedatectl --no-ask-password set-ntp 1
 localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_US.UTF-8"
 
 # Set keymaps
-localectl --no-ask-password set-keymap ${keymap}
+localectl --no-ask-password set-keymap ${KEYMAP}
 
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 
 #Add parallel downloading
-sed -i 's/^#Para/Para/' /etc/pacman.conf
+sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
 #Enable multilib
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy --noconfirm
+
 echo -ne "
 -------------------------------------------------------------------------
                     Installing Base System  
 -------------------------------------------------------------------------
 "
-PKGS=(
-'mesa' # Essential Xorg First
-'xorg'
-'xorg-server'
-'xorg-apps'
-'xorg-drivers'
-'xorg-xkill'
-'xorg-xinit'
-'plasma-desktop' # KDE Load second
-'alsa-plugins' # audio plugins
-'alsa-utils' # audio utils
-'android-tools'
-'android-udev'
-'apparmor' #extra
-'ark' # compression
-'audiocd-kio' 
-'audit'
-'autoconf' # build
-'automake' # build
-'base'
-'base-devel'
-'bind'
-'binutils'
-'bison'
-'bluedevil'
-'bluez'
-'bluez-libs'
-'bluez-utils'
-'breeze'
-'breeze-gtk'
-'bridge-utils'
-'btrfs-progs'
-'ccache'
-'clang'
-'clementine' #extra
-'cpio' #extra
-'cronie'
-'cups'
-'devede'
-'dialog'
-'dolphin'
-'dosfstools'
-'dtc'
-'efibootmgr' # EFI boot
-'egl-wayland'
-'exfatprogs'
-'extra-cmake-modules'
-'fakeroot' #extra
-'ffmpegthumbs' #extra
-'filelight'
-'flex'
-'fuse2'
-'fuse3'
-'fuseiso'
-'gamemode'
-'gcc'
-'gedit' #extra
-'gedit-plugins' #extra
-'gimp' # Photo editing
-'git'
-'gnome-contacts'
-'gnome-screenshot'
-'gnome-weather'
-'gparted' 
-'grub'
-'gst-libav'
-'gst-plugins-bad'
-'gst-plugins-ugly'
-'guake'
-'gwenview'
-'hardinfo'
-'handbrake'
-'haveged'
-'hplip'
-'htop'
-'inetutils'
-'inkscape'
-'jdk-openjdk' # Java 17
-'jq'
-'karchive' #extra
-'kauth' #extra
-'kcodecs'
-'kcompletion'
-'kcoreaddons'
-'kde-gtk-config'
-'kdeplasma-addons'
-'kdialog' #extra
-'kgamma5'
-'khotkeys'
-'kinfocenter'
-'konsole'
-'kscreen'
-'kvantum-qt5'
-'kwalletmanager' #extra
-'kwayland-integration'
-'kwrited'
-'latte-dock'
-'libappindicator-gtk3'
-'libdvdcss'
-'libnewt'
-'libtool'
-'lld'
-'llvm'
-'lsof'
-'lxtask' #extra
-'lzip'
-'lzop'
-'make'
-'mono'
-'mplayer' #extra
-'mpv'
-'mtools' #extra
-'nano'
-'neofetch'
-'networkmanager'
-'ntfs-3g'
-'ntp'
-'obs-studio'
-'openbsd-netcat'
-'openssh'
-'os-prober'
-'oxygen'
-'p7zip'
-'pacman-contrib'
-'pacmanlogviewer'
-'patchelf'
-'plasma-firewall'
-'plasma-nm'
-'plasma-pa'
-'plasma-thunderbolt'
-'powerdevil'
-'print-manager'
-'psensor'
-'pulseaudio'
-'pulseaudio-alsa'
-'pulseaudio-bluetooth'
-'python2-distlib'
-'python-notify2'
-'python-pip'
-'python-psutil'
-'python-pyqt5'
-'python-pyxdg' #extra
-'python-yaml'
-'qemu'
-'redshift' #extra
-'rpm' #extra
-'rsync'
-'sddm'
-'sddm-kcm'
-#'simg2img' #removed
-'sudo'
-'swtpm'
-'systemsettings'
-'telegram-desktop' #extra
-'terminus-font'
-'tlp' #extra
-'ttf-liberation' #extra
-'traceroute'
-'ufw'
-'unclutter' #extra
-'unrar'
-'unzip'
-'usbutils'
-'wget'
-'which'
-'wine-gecko'
-'wine-mono'
-'xdg-desktop-portal-kde'
-'xdg-user-dirs'
-'xsane'
-'zeroconf-ioslave'
-'zip'
-'zsh'
-'zsh-syntax-highlighting'
-'zsh-autosuggestions'
-)
-
-for PKG in "${PKGS[@]}"; do
-    echo "INSTALLING: ${PKG}"
-    sudo pacman -S "$PKG" --noconfirm --needed
+cat /root/ArchTitus/pkg-files/pacman-pkgs.txt | while read line 
+do
+    echo "INSTALLING: ${line}"
+   sudo pacman -S --noconfirm --needed ${line}
 done
-
 echo -ne "
 -------------------------------------------------------------------------
                     Installing Microcode
 -------------------------------------------------------------------------
 "
 # determine processor type and install microcode
-# 
 proc_type=$(lscpu)
 if grep -E "GenuineIntel" <<< ${proc_type}; then
     echo "Installing Intel microcode"
@@ -270,6 +92,7 @@ elif grep -E "AuthenticAMD" <<< ${proc_type}; then
     pacman -S --noconfirm amd-ucode
     proc_ucode=amd-ucode.img
 fi
+
 echo -ne "
 -------------------------------------------------------------------------
                     Installing Graphics Drivers
@@ -280,32 +103,80 @@ gpu_type=$(lspci)
 if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
     pacman -S nvidia --noconfirm --needed
 	nvidia-xconfig
-elif grep -E "Radeon" <<< ${gpu_type}; then
+elif lspci | grep 'VGA' | grep -E "Radeon|AMD"; then
     pacman -S xf86-video-amdgpu --noconfirm --needed
 elif grep -E "Integrated Graphics Controller" <<< ${gpu_type}; then
     pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils lib32-mesa --needed --noconfirm
 elif grep -E "Intel Corporation UHD" <<< ${gpu_type}; then
     pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils lib32-mesa --needed --noconfirm
 fi
+#SETUP IS WRONG THIS IS RUN
+if ! source /root/ArchTitus/setup.conf; then
+	# Loop through user input until the user gives a valid username
+	while true
+	do 
+		read -p "Please enter username:" username
+		# username regex per response here https://unix.stackexchange.com/questions/157426/what-is-the-regex-to-validate-linux-users
+		# lowercase the username to test regex
+		if [[ "${username,,}" =~ ^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$ ]]
+		then 
+			break
+		fi 
+		echo "Incorrect username."
+	done 
+# convert name to lowercase before saving to setup.conf
+echo "username=${username,,}" >> ${HOME}/ArchTitus/setup.conf
 
-echo -e "\nDone!\n"
-if ! source setup.conf; then
-	read -p "Please enter username:" username
-echo "username=$username" >> ${HOME}/ArchTitus/setup.conf
+    #Set Password
+    read -p "Please enter password:" password
+echo "password=${password,,}" >> ${HOME}/ArchTitus/setup.conf
+
+    # Loop through user input until the user gives a valid hostname, but allow the user to force save 
+	while true
+	do 
+		read -p "Please name your machine:" nameofmachine
+		# hostname regex (!!couldn't find spec for computer name!!)
+		if [[ "${nameofmachine,,}" =~ ^[a-z][a-z0-9_.-]{0,62}[a-z0-9]$ ]]
+		then 
+			break 
+		fi 
+		# if validation fails allow the user to force saving of the hostname
+		read -p "Hostname doesn't seem correct. Do you still want to save it? (y/n)" force 
+		if [[ "${force,,}" = "y" ]]
+		then 
+			break 
+		fi 
+	done 
+
+    echo "nameofmachine=${nameofmachine,,}" >> ${HOME}/ArchTitus/setup.conf
 fi
-if [ $(whoami) = "root"  ];
-then
-    useradd -m -G wheel -s /bin/bash $username 
-	passwd $username
-	cp -R /root/ArchTitus /home/$username/
-    chown -R $username: /home/$username/ArchTitus
-	read -p "Please name your machine:" nameofmachine
+echo -ne "
+-------------------------------------------------------------------------
+                    Adding User
+-------------------------------------------------------------------------
+"
+if [ $(whoami) = "root"  ]; then
+    groupadd libvirt
+    useradd -m -G wheel,libvirt -s /bin/bash $USERNAME 
+
+# use chpasswd to enter $username:$password
+    echo "$USERNAME:$PASSWORD" | chpasswd
+	cp -R /root/ArchTitus /home/$USERNAME/
+    chown -R $USERNAME: /home/$USERNAME/ArchTitus
+# enter $nameofmachine to /etc/hostname
 	echo $nameofmachine > /etc/hostname
 else
-	echo -ne "
+	echo "You are already a user proceed with aur installs"
+fi
+if [[ ${FS} == "luks" ]]; then
+# Making sure to edit mkinitcpio conf if luks is selected
+# add encrypt in mkinitcpio.conf before filesystems in hooks
+    sed -i 's/filesystems/encrypt filesystems/g' /etc/mkinitcpio.conf
+# making mkinitcpio with linux kernel
+    mkinitcpio -p linux
+fi
+echo -ne "
 -------------------------------------------------------------------------
                     SYSTEM READY FOR 2-user.sh
 -------------------------------------------------------------------------
 "
-fi
-
