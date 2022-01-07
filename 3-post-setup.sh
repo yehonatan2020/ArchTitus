@@ -62,13 +62,17 @@ echo -ne "
                     Enabling Essential Services
 -------------------------------------------------------------------------
 "
-systemctl enable cups.service
-ntpd -qg
-systemctl enable ntpd.service
-systemctl disable dhcpcd.service
-systemctl stop dhcpcd.service
-systemctl enable NetworkManager.service
+systemctl enable apparmor
+systemctl enable fstrim.timer
 systemctl enable bluetooth
+systemctl enable tlp
+systemctl enable cups
+systemctl enable NetworkManager
+
+sudo ln -s /usr/bin/paru /usr/bin/yay
+sudo rm -r /root/ArchTitus
+sudo rm -r /usr/bin/baloo*
+sudo rm -r /usr/lib/baloo*
 echo -ne "
 -------------------------------------------------------------------------
                     Cleaning 

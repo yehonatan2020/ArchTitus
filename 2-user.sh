@@ -18,8 +18,8 @@ Installing AUR Softwares
 source $HOME/ArchTitus/setup.conf
 
 cd ~
-git clone "https://aur.archlinux.org/yay.git"
-cd ~/yay
+git clone "https://aur.archlinux.org/paru.git"
+cd ~/paru
 makepkg -si --noconfirm
 cd ~
 touch "~/.cache/zshhistory"
@@ -27,7 +27,7 @@ git clone "https://github.com/ChrisTitusTech/zsh"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ln -s "~/zsh/.zshrc" ~/.zshrc
 
-yay -S --noconfirm --needed - < ~/ArchTitus/pkg-files/aur-pkgs.txt
+paru -S --noconfirm --needed - < ~/ArchTitus/pkg-files/aur-pkgs.txt
 
 export PATH=$PATH:~/.local/bin
 cp -r ~/ArchTitus/dotfiles/* ~/.config/
