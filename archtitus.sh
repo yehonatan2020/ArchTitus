@@ -16,6 +16,7 @@ echo -ne "
 -------------------------------------------------------------------------
                 Scripts are in directory named ArchTitus
 "
+    setfont ter-v24b
     bash startup.sh
     source $SCRIPT_DIR/setup.conf
     bash 0-preinstall.sh
