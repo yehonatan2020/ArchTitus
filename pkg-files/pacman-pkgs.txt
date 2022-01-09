@@ -62,6 +62,7 @@ gnome-screenshot
 gnome-weather
 gparted
 grub
+gsmartcontrol
 gst-libav
 gst-plugins-bad
 gst-plugins-ugly
@@ -105,6 +106,7 @@ lxtask
 lzip
 lzop
 make
+mkvtoolnix-gui
 mono
 mplayer
 mpv
@@ -122,6 +124,7 @@ oxygen
 p7zip
 pacman-contrib
 pacmanlogviewer
+paprefs
 patchelf
 plasma-firewall
 plasma-nm
