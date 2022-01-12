@@ -30,6 +30,7 @@ breeze-gtk
 bridge-utils
 btrfs-progs
 ccache
+cdrdao
 clang
 clementine
 cpio
@@ -40,6 +41,7 @@ dialog
 dolphin
 dosfstools
 dtc
+dvd+rw-tools
 efibootmgr
 egl-wayland
 exfatprogs
