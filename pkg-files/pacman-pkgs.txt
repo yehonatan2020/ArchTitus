@@ -170,6 +170,7 @@ wine-gecko
 wine-mono
 xdg-desktop-portal-kde
 xdg-user-dirs
+xmlstarlet
 xsane
 zeroconf-ioslave
 zip
