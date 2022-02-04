@@ -5,6 +5,7 @@ dxvk-bin
 lightly-git
 lightlyshaders-git
 lineageos-devel
+mkinitcpio-firmware
 microsoft-edge-dev-bin
 nerd-fonts-complete
 newflasher-git
