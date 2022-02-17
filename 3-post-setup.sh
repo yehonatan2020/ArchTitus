@@ -68,7 +68,9 @@ systemctl enable fstrim.timer
 systemctl enable bluetooth
 systemctl enable tlp
 systemctl enable cups
-systemctl enable NetworkManager
+systemctl enable connman
+systemctl enable iwd
+systemctl mask wpa_supplicant
 
 sudo ln -s /usr/bin/paru /usr/bin/yay
 sudo rm -r /root/ArchTitus
