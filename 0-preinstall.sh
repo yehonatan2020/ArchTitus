@@ -128,7 +128,7 @@ prep_disk() {
 do_partition() {
     prep_disk
     if [[ "$UEFI" -eq 1 ]]; then
-        sgdisk -n 1::+300M --typecode=1:ef00 --change-name=1:"$BOOT" "$DISK" # partition 1 (UEFI Boot Partition)
+        sgdisk -n 1::+512M --typecode=1:ef00 --change-name=1:"$BOOT" "$DISK" # partition 1 (UEFI Boot Partition)
         sgdisk -n 2::-0 --typecode=2:8300 --change-name=2:"$ROOT" "$DISK"    # partition 2 (Root), default start, remaining
     else
         sgdisk -n 1::+1M --typecode=1:ef02 --change-name=1:"BIOSBOOT" "$DISK"
@@ -240,20 +240,17 @@ genfstab -U "$MOUNTPOINT" >>"$MOUNTPOINT"/etc/fstab
 cp -R "$SCRIPT_DIR" "$MOUNTPOINT"/root/ArchTitus
 cp /etc/pacman.d/mirrorlist "$MOUNTPOINT"/etc/pacman.d/mirrorlist
 
-# TOTALMEM=$(cat /proc/meminfo | grep -i 'memtotal' | grep -o '[[:digit:]]*')
-TOTALMEM="$(grep -i "memtotal" "/proc/meminfo" | grep -o '[[:digit:]]*')"
-if [[ $TOTALMEM -lt 8000000 ]]; then
-    echo "Checking for low memory systems <8G "
+
+    echo "Creating SWAP file "
     # Put swap into the actual system, not into RAM disk, otherwise there is no point in it, it'll cache RAM into RAM. So, /mnt/ everything.
     mkdir -p "$MOUNTPOINT"/opt/swap  # make a dir that we can apply NOCOW to to make it btrfs-friendly.
     chattr +C "$MOUNTPOINT"/opt/swap # apply NOCOW, btrfs needs that.
-    dd if=/dev/zero of="$MOUNTPOINT"/opt/swap/swapfile bs=1M count=2048 status=progress
+    dd if=/dev/zero of="$MOUNTPOINT"/opt/swap/swapfile bs=1M count=8192 status=progress
     chmod 600 "$MOUNTPOINT"/opt/swap/swapfile # set permissions.
     chown root "$MOUNTPOINT"/opt/swap/swapfile
     mkswap "$MOUNTPOINT"/opt/swap/swapfile
     swapon "$MOUNTPOINT"/opt/swap/swapfile
     # The line below is written to /mnt/ but doesn't contain /mnt/, since it's just / for the system itself.
     echo -e "/opt/swap/swapfile\tnone     \tswap     \tsw\t0 0" >>"$MOUNTPOINT"/etc/fstab # Add swap to fstab, so it KEEPS working after installation.
-fi
 
 title "System ready for 1-setup.sh"
