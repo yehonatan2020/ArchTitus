@@ -162,7 +162,7 @@ bash_prompt() {
 	
 	
 	## COLORS
-	local   DEFAULT='2'
+	local   DEFAULT='9'
 	local     BLACK='0'
 	local       RED='1'
 	local     GREEN='2'
