@@ -43,14 +43,14 @@ EOF
 fi
 
 echo "Enabling Essential Services"
-systemctl enable cups.service
-systemctl enable cronie.service
-ntpd -qg
-systemctl enable ntpd.service
-systemctl disable dhcpcd.service
-systemctl stop dhcpcd.service
-systemctl enable NetworkManager.service
+systemctl enable apparmor
+systemctl enable fstrim.timer
 systemctl enable bluetooth
+systemctl enable tlp
+systemctl enable cups
+systemctl enable connman
+systemctl enable iwd
+systemctl mask wpa_supplicant
 
 echo "Cleaning"
 # Remove no password sudo rights
