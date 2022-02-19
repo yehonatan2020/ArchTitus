@@ -21,9 +21,9 @@ title "Installing AUR helper"
 
 cd "$HOME" || exit 0
 case "$AURHELPER" in
-"yay")
+"paru")
     # install_pkg "go" permission error
-    git clone "https://aur.archlinux.org/yay.git"
+    git clone "https://aur.archlinux.org/paru.git"
     ;;
 "trizen")
     # install_pkg "perl"
