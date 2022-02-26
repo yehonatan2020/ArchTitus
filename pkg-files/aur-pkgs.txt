@@ -17,7 +17,6 @@ noto-fonts-emoji
 octopi-dev
 octopi-notifier-frameworks
 pacaur
-papirus-icon-theme
 pikaur
 plymouth-git
 ocs-url
