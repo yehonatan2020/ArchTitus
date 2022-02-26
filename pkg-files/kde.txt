@@ -38,7 +38,6 @@ milou
 okular
 oxygen
 plasma-firewall
-plasma-nm
 plasma-pa
 plasma-wayland-session
 powerdevil

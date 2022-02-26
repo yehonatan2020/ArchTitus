@@ -6,6 +6,7 @@ autojump
 beignet-git
 bridge-utils
 btop
+cmst
 dxvk-bin
 lightly-git
 lineageos-devel
