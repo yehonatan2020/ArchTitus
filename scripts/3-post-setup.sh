@@ -89,8 +89,13 @@ echo -ne "
                     Enabling Essential Services
 -------------------------------------------------------------------------
 "
-systemctl enable cups.service
+systemctl enable cups
 echo "  Cups enabled"
+systemctl enable tlp
+echo "   TLP enabled"
+systemctl enable fstrim.timer
+systemctl enable apparmor
+echo "   Apparmor enabled"
 ntpd -qg
 systemctl enable ntpd.service
 echo "  NTP enabled"
@@ -98,8 +103,10 @@ systemctl disable dhcpcd.service
 echo "  DHCP disabled"
 systemctl stop dhcpcd.service
 echo "  DHCP stopped"
-systemctl enable NetworkManager.service
-echo "  NetworkManager enabled"
+systemctl enable connman
+echo "  Connection Manager enabled"
+systemctl enable iwd
+systemctl mask wpa_supplicant
 systemctl enable bluetooth
 echo "  Bluetooth enabled"
 
