@@ -88,6 +88,7 @@ lxtask
 lzop
 m4
 make
+mlocate
 mono
 mplayer
 mpv
