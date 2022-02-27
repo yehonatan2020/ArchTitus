@@ -22,10 +22,7 @@ or on linux you can use dd command
 From the initial prompt type the following commands:
 
 ```
-pacman -Sy git
-git clone https://github.com/yehonatan2020/ArchTitus
-cd ArchTitus
-./archtitus.sh
+pacman -Sy git && git clone https://github.com/yehonatan2020/ArchTitus && cd A* && ./archtitus.sh
 ```
 ## For Wifi
 1: Run `iwctl`
