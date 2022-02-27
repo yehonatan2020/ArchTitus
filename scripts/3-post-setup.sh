@@ -123,7 +123,7 @@ if  [[ $FS == "luks"]]; then
 else
   sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
 fi
-plymouth-set-default-theme -R arch-glow # sets the theme and runs mkinitcpio
+plymouth-set-default-theme -R arch-glow 
 echo 'Plymouth theme installed'
 
 echo -ne "
@@ -131,6 +131,13 @@ echo -ne "
                     Cleaning
 -------------------------------------------------------------------------
 "
+rm -r $HOME/ArchTitus
+rm -r $HOME/paru
+rm -r $HOME/zsh
+rm *log
+rm -r /usr/bin/baloo*
+rm -r /usr/lib/baloo*
+
 # Remove no password sudo rights
 sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
@@ -138,8 +145,7 @@ sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: A
 sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
-rm -r $HOME/ArchTitus
-rm -r /home/$USERNAME/ArchTitus
+
 
 # Replace in the same state
 cd $pwd
