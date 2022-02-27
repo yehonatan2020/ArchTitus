@@ -25,7 +25,7 @@ echo -ne "
               Grub Theming
 -------------------------------------------------------------------------
 "
-cp -r  ~/ArchTitus/configs/usr/share/wallpaper/real-wood /usr/share/wallpapers
+cp -r  ${HOME}/ArchTitus/configs/usr/share/wallpaper/real-wood /usr/share/wallpapers
 echo 'GRUB_COLOR_NORMAL="white/black"' >> /etc/default/grub
 echo 'GRUB_COLOR_NORMAL="light-cyan/black"' >> /etc/default/grub
 echo 'GRUB_BACKGROUND="/usr/share/wallpapers/real-wood/real-wood.jpg"' >> /etc/default/grub
