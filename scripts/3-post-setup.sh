@@ -20,7 +20,15 @@ source ${HOME}/ArchTitus/configs/setup.conf
 if [[ -d "/sys/firmware/efi" ]]; then
     grub-install --efi-directory=/boot ${DISK}
 fi
-
+echo -ne "
+-------------------------------------------------------------------------
+              Grub Theming
+-------------------------------------------------------------------------
+"
+cp -r  ~/ArchTitus/configs/usr/share/wallpaper/real-wood /usr/share/wallpapers
+echo 'GRUB_COLOR_NORMAL="white/black"' >> /etc/default/grub
+echo 'GRUB_COLOR_NORMAL="light-cyan/black"' >> /etc/default/grub
+echo 'GRUB_BACKGROUND="/usr/share/wallpapers/real-wood/real-wood.jpg"' >> /etc/default/grub
 echo -ne "
 -------------------------------------------------------------------------
                Creating Grub Boot Menu
@@ -98,16 +106,7 @@ systemctl enable bluetooth
 echo "  Bluetooth enabled"
 
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
-echo -ne "
--------------------------------------------------------------------------
-              Grub Theming
--------------------------------------------------------------------------
-"
 
-cp -r  ~/ArchTitus/configs/usr/share/wallpaper/real-wood /usr/share/wallpapers
-echo 'GRUB_COLOR_NORMAL="white/black"' >> /etc/default/grub
-echo 'GRUB_COLOR_NORMAL="light-cyan/black"' >> /etc/default/grub
-echo 'GRUB_BACKGROUND="/usr/share/wallpapers/real-wood/real-wood.jpg"' >> /etc/default/grub
 echo -ne "
 -------------------------------------------------------------------------
                Enabling (and Theming) Plymouth Boot Splash
