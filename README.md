@@ -43,4 +43,4 @@ __[Arch Linux Installation Guide](https://github.com/rickellis/Arch-Linux-Instal
 
 ## Credits
 - Original packages script was a post install cleanup script called ArchMatic located here: https://github.com/rickellis/ArchMatic
-- Thank you to all the folks that helped during the creation from YouTube Chat! Here are all those Livestreams showing the creation: <https://www.youtube.com/watch?v=IkMCtkDIhe8&list=PLc7fktTRMBowNaBTsDHlL6X3P3ViX3tYg>
+- Thanks to ChrisTitus as this is a fork from his work
