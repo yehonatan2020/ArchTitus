@@ -4,7 +4,6 @@ adobe-source-serif-fonts
 android-apktool
 autojump
 beignet-git
-bridge-utils
 btop
 cmst
 dxvk-bin
