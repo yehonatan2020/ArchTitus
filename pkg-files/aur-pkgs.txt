@@ -1,9 +1,7 @@
 --END OF MINIMAL INSTALL--
 adobe-source-sans-fonts
 adobe-source-serif-fonts
-#android-apktool
 autojump
-#beignet-git
 btop
 cmst
 dxvk-bin
