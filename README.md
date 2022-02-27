@@ -25,7 +25,7 @@ cd ArchTitus
 ### System Description
 This is completely automated arch install of the KDE desktop environment on arch.
 
-#Special Feature
+## Special Feature
 Network Manager is replaced with Connection Manager (connman), and after your first boot you will need to open Connman UI Setup from the applications menu.
 You will want to set in the preferences to `Enable Start Options from GUI`, `Retain State`, `Enable Tooltips`, `Advanced Control`, `Start Minimized`, `Enable Autostart`
 Also wpa suppicant is replaced with iwd, and if you find you have an issue with bluetooth, then try to disable iwd, unmask wpa supplicant, enable bluetooth, and then re-enable iwd and mask wpa supplicant.
