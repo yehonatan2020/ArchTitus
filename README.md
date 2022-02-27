@@ -22,8 +22,8 @@ cd ArchTitus
 ./archtitus.sh
 ```
 
-### System Description
-This is completely automated arch install of the KDE desktop environment on arch.
+## System Description
+This is a completely automated arch install of the KDE desktop environment on Arch Linux.
 
 ## Special Feature
 Network Manager is replaced with Connection Manager (connman), and after your first boot you will need to open Connman UI Setup from the applications menu.
