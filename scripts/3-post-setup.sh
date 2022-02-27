@@ -33,22 +33,7 @@ fi
 # set kernel parameter for adding splash screen
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& splash /' /etc/default/grub
 
-echo -e "Installing CyberRe Grub theme..."
-THEME_DIR="/boot/grub/themes"
-THEME_NAME=CyberRe
-echo -e "Creating the theme directory..."
-mkdir -p "${THEME_DIR}/${THEME_NAME}"
-echo -e "Copying the theme..."
-cd ${HOME}/ArchTitus
-cp -a configs${THEME_DIR}/${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
-echo -e "Backing up Grub config..."
-cp -an /etc/default/grub /etc/default/grub.bak
-echo -e "Setting the theme as the default..."
-grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
-echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/grub
-echo -e "Updating grub..."
 grub-mkconfig -o /boot/grub/grub.cfg
-echo -e "All set!"
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -95,6 +80,7 @@ systemctl enable tlp
 echo "   TLP enabled"
 systemctl enable fstrim.timer
 systemctl enable apparmor
+systemctl enable auditd
 echo "   Apparmor enabled"
 ntpd -qg
 systemctl enable ntpd.service
@@ -103,6 +89,7 @@ systemctl disable dhcpcd.service
 echo "  DHCP disabled"
 systemctl stop dhcpcd.service
 echo "  DHCP stopped"
+systemctl disable NetworkManager
 systemctl enable connman
 echo "  Connection Manager enabled"
 systemctl enable iwd
@@ -113,20 +100,14 @@ echo "  Bluetooth enabled"
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
 echo -ne "
 -------------------------------------------------------------------------
-                    Creating Snapper Config
+              Grub Theming
 -------------------------------------------------------------------------
 "
 
-SNAPPER_CONF="$HOME/ArchTitus/configs/etc/snapper/configs/root"
-mkdir -p /etc/snapper/configs/
-cp -rfv ${SNAPPER_CONF} /etc/snapper/configs/
-
-SNAPPER_CONF_D="$HOME/ArchTitus/configs/etc/conf.d/snapper"
-mkdir -p /etc/conf.d/
-cp -rfv ${SNAPPER_CONF_D} /etc/conf.d/
-
-fi
-
+cp -r  ~/ArchTitus/configs/usr/share/wallpaper/real-wood /usr/share/wallpapers
+echo 'GRUB_COLOR_NORMAL="white/black"' >> /etc/default/grub
+echo 'GRUB_COLOR_NORMAL="light-cyan/black"' >> /etc/default/grub
+echo 'GRUB_BACKGROUND="/usr/share/wallpapers/real-wood/real-wood.jpg"' >> /etc/default/grub
 echo -ne "
 -------------------------------------------------------------------------
                Enabling (and Theming) Plymouth Boot Splash
