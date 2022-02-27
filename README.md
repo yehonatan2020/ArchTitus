@@ -6,7 +6,8 @@ This README contains all the steps to have a fully functional Arch Linux with KD
 
 
 ## System Description
-This is a completely automated arch install of the KDE desktop environment on Arch Linux.
+This is a completely automated arch install of the KDE desktop environment on Arch Linux. 
+Now though, the user has the abillity to choose their own desktop; GNOME, KDE, XFCE, MATE, BUDGIE, CINNAMON, DEEPIN, LXDE, OPENBOX, XFCE
 
 ## Special Feature
 Network Manager is replaced with Connection Manager (connman), and after your first boot you will need to open Connman UI Setup from the applications menu.
