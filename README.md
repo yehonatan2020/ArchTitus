@@ -1,6 +1,7 @@
 # ArchTitus Installer Script
 
-<img src="https://imgur.com/a/aIZpZ3y" />
+<img src="https://i.imgur.com/YiNMnan.png" />
+<img src="https://imgur.com/a/0i0lcGJ" />
 
 This README contains all the steps to have a fully functional Arch Linux with KDE desktop, suited ideally for Android devs
 
