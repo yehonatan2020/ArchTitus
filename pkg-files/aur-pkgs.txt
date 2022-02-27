@@ -8,7 +8,7 @@ bridge-utils
 btop
 cmst
 dxvk-bin
-lightly-git
+kvantum-nordic-theme-git
 lineageos-devel
 mkinitcpio-firmware
 microsoft-edge-dev-bin

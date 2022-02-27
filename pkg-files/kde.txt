@@ -9,7 +9,6 @@ bluez
 bluez-libs
 bluez-utils
 breeze
-breeze-gtk
 extra-cmake-modules
 filelight
 ffmpegthumbs
@@ -23,7 +22,6 @@ kcompletion
 kcoreaddons
 kdeplasma-addons
 kgamma5
-kgpg
 khotkeys
 kinfocenter
 konsole
@@ -35,7 +33,6 @@ kwrited
 latte-dock
 layer-shell-qt
 milou
-okular
 oxygen
 plasma-firewall
 plasma-pa
