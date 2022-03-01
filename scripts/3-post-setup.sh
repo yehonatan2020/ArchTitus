@@ -102,8 +102,14 @@ if [[ ${INSTALL_TYPE} == "FULL" ]]; then
   echo "  DHCP stopped"
   systemctl enable bluetooth
   echo "  Bluetooth enabled"
-systemctl enable iwd
-systemctl mask wpa_supplicant
+  systemctl enable apparmor
+  systemctl enable fstrim.timer
+  echo "   fstrim enabled"
+  systemctl enable iwd
+  echo "   iwd enabled"
+  systemctl mask wpa_supplicant
+  systemctl enable tlp
+  echo "   tlp enabled"
 
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
 echo -ne "
@@ -148,13 +154,13 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 rm -r $HOME/ArchTitus
-rm -r /home/$USERNAME/ArchTitus
+rm -r /home/"$USERNAME"/ArchTitus
 rm -r $HOME/paru
-rm -r /home/$USERNAME/paru
+rm -r /home/"$USERNAME"/paru
 rm -r $HOME/zsh
-rm -r /home/$USERNAME/zsh
+rm -r /home/"$USERNAME"/zsh
 rm  $HOME/*log
-rm /home/$USERNAME/*log
+rm /home/"$USERNAME"/*log
 sudo rm -r /usr/bin/baloo*
 sudo rm -r /usr/lib/baloo*
 echo "Cleaning up sudoers file"
@@ -171,4 +177,5 @@ sed -i 's/^ %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 #sed -i 's/^ %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Replace in the same state
-cd $pwd
+cd "$pwd" || exit 0
+#cd "$(pwd)" || exit 0
