@@ -109,9 +109,17 @@ echo "  Connection Manager enabled"
   systemctl enable tlp
   echo "   tlp enabled"
   
-  kvantummanager --set Qogir-dark
-  
-  sudo rm -r /usr/bin/baloo*
+  sudo rm $HOME/.config/kdedefaults/kdeglobals
+  touch $HOME/.config/kdedefaults/kdeglobals
+  echo "[General]" >> $HOME/.config/kdedefaults/kdeglobals
+  echo "ColorScheme=BreezeDark" >> $HOME/.config/kdedefaults/kdeglobals
+   echo "[Icons]" >> $HOME/.config/kdedefaults/kdeglobals
+   echo "Theme=breeze-dark" >> $HOME/.config/kdedefaults/kdeglobals
+    echo "[KDE]" >> $HOME/.config/kdedefaults/kdeglobals
+     echo "[widgetStyle=kvantum]" >> $HOME/.config/kdedefaults/kdeglobals
+       kvantummanager --set Qogir-dark
+   
+    sudo rm -r /usr/bin/baloo*
   sudo rm -r /usr/lib/baloo*
   rm -r ${HOME}/powerlevel10k
   rm -r ${HOME}/paru
