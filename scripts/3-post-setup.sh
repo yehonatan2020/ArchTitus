@@ -165,6 +165,14 @@ sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 rm -r $HOME/ArchTitus
 rm -r /home/$USERNAME/ArchTitus
+rm -r $HOME/powerlevel10k
+rm -r /home/$USERNAME/powerlevel10k
+rm -r $HOME/zsh
+rm -r /home/$USERNAME/zsh
+rm -r $HOME/paru
+rm -r /home/$USERNAME/paru
+rm -r $HOME/*log
+rm -r /home/$USERNAME/*log
 
 # Replace in the same state
 cd $pwd
