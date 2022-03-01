@@ -110,6 +110,12 @@ if [[ ${INSTALL_TYPE} == "FULL" ]]; then
   systemctl mask wpa_supplicant
   systemctl enable tlp
   echo "   tlp enabled"
+  
+  sudo rm -r /usr/bin/baloo*
+  sudo rm -r /usr/lib/baloo*
+  rm -r ${HOME}/powerlevel10k
+  rm -r ${HOME}/paru
+  rm -r ${HOME}/zsh
 
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
   echo -ne "
@@ -117,7 +123,7 @@ if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
                     Creating Snapper Config
 -------------------------------------------------------------------------
 "
-  SNAPPER_CONF="$HOME/ArchTitus/configs/etc/snapper/configs/root"
+  SNAPPER_CONF="${HOME}/ArchTitus/configs/etc/snapper/configs/root"
   mkdir -p /etc/snapper/configs/
   cp -rfv ${SNAPPER_CONF} /etc/snapper/configs/
 
@@ -131,7 +137,7 @@ echo -ne "
                 Enabling (and Theming) Plymouth Boot Splash
   -------------------------------------------------------------------------
   "
-PLYMOUTH_THEMES_DIR="$HOME/ArchTitus/configs/usr/share/plymouth/themes"
+PLYMOUTH_THEMES_DIR="${HOME}/ArchTitus/configs/usr/share/plymouth/themes"
 PLYMOUTH_THEME="arch-glow" # can grab from config later if we allow selection
 mkdir -p "/usr/share/plymouth/themes"
 echo 'Installing Plymouth theme...'
@@ -151,16 +157,8 @@ echo -ne "
                     Cleaning
 -------------------------------------------------------------------------
 "
-rm -r $HOME/ArchTitus
-rm -r /home/"$USERNAME"/ArchTitus
-rm -r $HOME/paru
-rm -r /home/"$USERNAME"/paru
-rm -r $HOME/zsh
-rm -r /home/"$USERNAME"/zsh
-rm  $HOME/*log
-rm /home/"$USERNAME"/*log
-sudo rm -r /usr/bin/baloo*
-sudo rm -r /usr/lib/baloo*
+rm -r ${HOME}/ArchTitus
+rm  ${HOME}/*log
 
 echo "Cleaning up sudoers file"
 # Remove no password sudo rights
