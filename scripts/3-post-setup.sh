@@ -155,11 +155,6 @@ echo -ne "
                     Cleaning
 -------------------------------------------------------------------------
 "
-echo "Cleaning up sudoers file"
-# Remove no password sudo rights
-sed -i 's/^#%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
-# Add sudo rights
-sed -i 's/^ %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 rm -r $HOME/ArchTitus
 rm -r /home/$USERNAME/ArchTitus
 rm -r $HOME/paru
@@ -170,13 +165,18 @@ rm  $HOME/*log
 rm /home/$USERNAME/*log
 sudo rm -r /usr/bin/baloo*
 sudo rm -r /usr/lib/baloo*
+echo "Cleaning up sudoers file"
+# Remove no password sudo rights
+sed -i 's/^#%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+# Add sudo rights
+sed -i 's/^ %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Remove no password sudo rights
 #sed -i 's/^#%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 #sed -i 's/^#%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 # Add sudo rights
-sed -i 's/^ %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-sed -i 's/^ %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+#sed -i 's/^ %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+#sed -i 's/^ %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 
 
