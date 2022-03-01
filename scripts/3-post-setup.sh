@@ -125,7 +125,7 @@ echo -ne "
   mkdir -p /etc/conf.d/
   cp -rfv ${SNAPPER_CONF_D} /etc/conf.d/
 
-if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
+fi
 
 echo -ne "
   -------------------------------------------------------------------------
