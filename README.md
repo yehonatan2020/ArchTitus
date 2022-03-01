@@ -35,7 +35,9 @@ pacman -Sy git && git clone https://github.com/yehonatan2020/ArchTitus && cd A* 
 
 5: Find your network, and run `station [device name] connect [network name]`
 
-6: Enter your password and run `exit`. You can test if you have internet connection by running `ping google.com`. 
+6: Enter your password and run `exit`. 
+
+You can test if you have internet connection by running `ping google.com`. 
 
 ## Troubleshooting
 __[Arch Linux Installation Guide](https://github.com/rickellis/Arch-Linux-Install-Guide)__
