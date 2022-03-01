@@ -131,12 +131,12 @@ echo -ne "
                     Cleaning
 -------------------------------------------------------------------------
 "
-rm -r $HOME/ArchTitus
-rm -r $HOME/paru
-rm -r $HOME/zsh
-rm *log
-rm -r /usr/bin/baloo*
-rm -r /usr/lib/baloo*
+rm -r /home/$USERNAME/ArchTitus
+rm -r /home/$USERNAME/paru
+rm -r /home/$USERNAME/zsh
+rm /home/$USERNAME/*log
+sudo rm -r /usr/bin/baloo*
+sudo rm -r /usr/lib/baloo*
 
 # Remove no password sudo rights
 sed -i 's/^#%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
