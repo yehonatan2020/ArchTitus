@@ -13,8 +13,6 @@ newflasher-git
 noto-fonts-emoji
 octopi-dev
 octopi-notifier-frameworks
-pacaur
-pikaur
 plymouth-git
 ocs-url
 sddm-nordic-theme-git

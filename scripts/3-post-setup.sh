@@ -119,9 +119,9 @@ if [[ ${INSTALL_TYPE} == "FULL" ]]; then
 
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
   echo -ne "
--------------------------------------------------------------------------
-                    Creating Snapper Config
--------------------------------------------------------------------------
+  -------------------------------------------------------------------------
+                               Creating Snapper Config
+  -------------------------------------------------------------------------
 "
   SNAPPER_CONF="${HOME}/ArchTitus/configs/etc/snapper/configs/root"
   mkdir -p /etc/snapper/configs/
