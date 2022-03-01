@@ -88,10 +88,8 @@ echo -ne "
 echo "  Connection Manager enabled"
   systemctl disable NetworkManager
 
-if [[ ${INSTALL_TYPE} == "FULL" ]]; then
-
   # services part of full installation
-  systemctl enable cups.service
+  systemctl enable cups
   echo "  Cups enabled"
   ntpd -qg
   systemctl enable ntpd.service
@@ -118,38 +116,39 @@ if [[ ${INSTALL_TYPE} == "FULL" ]]; then
   rm -r ${HOME}/zsh
 
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
-  echo -ne "
-  -------------------------------------------------------------------------
-                               Creating Snapper Config
-  -------------------------------------------------------------------------
+echo -ne "
+-------------------------------------------------------------------------
+                    Creating Snapper Config
+-------------------------------------------------------------------------
 "
-  SNAPPER_CONF="${HOME}/ArchTitus/configs/etc/snapper/configs/root"
-  mkdir -p /etc/snapper/configs/
-  cp -rfv ${SNAPPER_CONF} /etc/snapper/configs/
 
-  SNAPPER_CONF_D="$HOME/ArchTitus/configs/etc/conf.d/snapper"
-  mkdir -p /etc/conf.d/
-  cp -rfv ${SNAPPER_CONF_D} /etc/conf.d/
+SNAPPER_CONF="$HOME/ArchTitus/configs/etc/snapper/configs/root"
+mkdir -p /etc/snapper/configs/
+cp -rfv ${SNAPPER_CONF} /etc/snapper/configs/
+
+SNAPPER_CONF_D="$HOME/ArchTitus/configs/etc/conf.d/snapper"
+mkdir -p /etc/conf.d/
+cp -rfv ${SNAPPER_CONF_D} /etc/conf.d/
+
 fi
 
 echo -ne "
-  -------------------------------------------------------------------------
-                Enabling (and Theming) Plymouth Boot Splash
-  -------------------------------------------------------------------------
-  "
-PLYMOUTH_THEMES_DIR="${HOME}/ArchTitus/configs/usr/share/plymouth/themes"
+-------------------------------------------------------------------------
+               Enabling (and Theming) Plymouth Boot Splash
+-------------------------------------------------------------------------
+"
+PLYMOUTH_THEMES_DIR="$HOME/ArchTitus/configs/usr/share/plymouth/themes"
 PLYMOUTH_THEME="arch-glow" # can grab from config later if we allow selection
-mkdir -p "/usr/share/plymouth/themes"
+mkdir -p /usr/share/plymouth/themes
 echo 'Installing Plymouth theme...'
-cp -rf "${PLYMOUTH_THEMES_DIR}/${PLYMOUTH_THEME}" "/usr/share/plymouth/themes"
-  
+cp -rf ${PLYMOUTH_THEMES_DIR}/${PLYMOUTH_THEME} /usr/share/plymouth/themes
 if  [[ "${FS}" == "luks" ]]; then
   sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
   sed -i 's/HOOKS=(base udev \(.*block\) /&plymouth-/' /etc/mkinitcpio.conf # create plymouth-encrypt after block hook
 else
   sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
 fi
-  plymouth-set-default-theme -R arch-glow # sets the theme and runs mkinitcpio
+plymouth-set-default-theme -R arch-glow # sets the theme and runs mkinitcpio
 echo 'Plymouth theme installed'
 
 echo -ne "
@@ -157,14 +156,15 @@ echo -ne "
                     Cleaning
 -------------------------------------------------------------------------
 "
-rm -r ${HOME}/ArchTitus
-rm  ${HOME}/*log
-
-echo "Cleaning up sudoers file"
 # Remove no password sudo rights
+sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 # Add sudo rights
+sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
+rm -r $HOME/ArchTitus
+rm -r /home/$USERNAME/ArchTitus
+
 # Replace in the same state
-cd "$pwd" || exit 0
+cd $pwd
