@@ -109,6 +109,8 @@ echo "  Connection Manager enabled"
   systemctl enable tlp
   echo "   tlp enabled"
   
+  kvantummanager --set Nordic-Darker
+  
   sudo rm -r /usr/bin/baloo*
   sudo rm -r /usr/lib/baloo*
   rm -r ${HOME}/powerlevel10k

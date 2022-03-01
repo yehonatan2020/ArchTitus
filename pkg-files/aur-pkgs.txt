@@ -5,6 +5,7 @@ autojump
 btop
 cmst
 dxvk-bin
+kvantum-theme-nordic-git
 kvantum-theme-qogir-git
 lineageos-devel
 mkinitcpio-firmware
