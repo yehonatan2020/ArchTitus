@@ -109,7 +109,7 @@ echo "  Connection Manager enabled"
   systemctl enable tlp
   echo "   tlp enabled"
   
-  kvantummanager --set Nordic-Darker
+  kvantummanager --set Qogir-dark
   
   sudo rm -r /usr/bin/baloo*
   sudo rm -r /usr/lib/baloo*
