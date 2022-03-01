@@ -1,5 +1,4 @@
 #!/bin/bash
-
 setfont ter-v22b
 # Find the name of the folder the scripts are in
 set -a
