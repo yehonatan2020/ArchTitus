@@ -83,17 +83,10 @@ echo -ne "
                     Enabling Essential Services
 -------------------------------------------------------------------------
 "
-
-
-
-
-
-
-
-
-# services part of the base installation
-systemctl enable connman
-echo "  Connection Manager enabled"
+  # services part of the base installation
+  systemctl enable connman
+  echo "  Connection Manager enabled"
+  systemctl disable NetworkManager
 
 if [[ ${INSTALL_TYPE} == "FULL" ]]; then
 
@@ -109,7 +102,6 @@ if [[ ${INSTALL_TYPE} == "FULL" ]]; then
   echo "  DHCP stopped"
   systemctl enable bluetooth
   echo "  Bluetooth enabled"
-systemctl disable NetworkManager
 systemctl enable iwd
 systemctl mask wpa_supplicant
 
