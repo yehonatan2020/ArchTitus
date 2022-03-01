@@ -18,7 +18,7 @@ GRUB EFI Bootloader Install & Check
 source ${HOME}/ArchTitus/configs/setup.conf
 
 if [[ -d "/sys/firmware/efi" ]]; then
-    grub-install --efi-directory=/boot ${DISK}
+  grub-install --efi-directory=/boot ${DISK}
 fi
 echo -ne "
 -------------------------------------------------------------------------
@@ -36,7 +36,7 @@ echo -ne "
 "
 # set kernel parameter for decrypting the drive
 if [[ "${FS}" == "luks" ]]; then
-sed -i "s%GRUB_CMDLINE_LINUX_DEFAULT=\"%GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${ENCRYPTED_PARTITION_UUID}:ROOT root=/dev/mapper/ROOT %g" /etc/default/grub
+  sed -i "s%GRUB_CMDLINE_LINUX_DEFAULT=\"%GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${ENCRYPTED_PARTITION_UUID}:ROOT root=/dev/mapper/ROOT %g" /etc/default/grub
 fi
 # set kernel parameter for adding splash screen
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& splash /' /etc/default/grub
@@ -50,11 +50,11 @@ echo -ne "
 "
 if [[ ${DESKTOP_ENV} == "kde" ]]; then
   systemctl enable sddm.service
-  if [[ ${INSTALL_TYPE} == "FULL" ]]; then
+if [[ ${INSTALL_TYPE} == "FULL" ]]; then
   echo -e "Setting SDDM Theme..."
-    echo [Theme] >>  /etc/sddm.conf
-    echo Current=Nordic >> /etc/sddm.conf
-  fi
+  echo [Theme] >>  /etc/sddm.conf
+  echo Current=Nordic >> /etc/sddm.conf
+fi
 
 elif [[ "${DESKTOP_ENV}" == "gnome" ]]; then
   systemctl enable gdm.service
@@ -85,7 +85,7 @@ echo -ne "
 "
   # services part of the base installation
   systemctl enable connman
-  echo "  Connection Manager enabled"
+echo "  Connection Manager enabled"
   systemctl disable NetworkManager
 
 if [[ ${INSTALL_TYPE} == "FULL" ]]; then
@@ -112,7 +112,7 @@ if [[ ${INSTALL_TYPE} == "FULL" ]]; then
   echo "   tlp enabled"
 
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
-echo -ne "
+  echo -ne "
 -------------------------------------------------------------------------
                     Creating Snapper Config
 -------------------------------------------------------------------------
@@ -124,7 +124,6 @@ echo -ne "
   SNAPPER_CONF_D="$HOME/ArchTitus/configs/etc/conf.d/snapper"
   mkdir -p /etc/conf.d/
   cp -rfv ${SNAPPER_CONF_D} /etc/conf.d/
-
 fi
 
 echo -ne "
@@ -132,19 +131,20 @@ echo -ne "
                 Enabling (and Theming) Plymouth Boot Splash
   -------------------------------------------------------------------------
   "
-  PLYMOUTH_THEMES_DIR="$HOME/ArchTitus/configs/usr/share/plymouth/themes"
-  PLYMOUTH_THEME="arch-glow" # can grab from config later if we allow selection
-  mkdir -p "/usr/share/plymouth/themes"
-  echo 'Installing Plymouth theme...'
-  cp -rf "${PLYMOUTH_THEMES_DIR}/${PLYMOUTH_THEME}" "/usr/share/plymouth/themes"
-  if  [[ "${FS}" == "luks" ]]; then
-    sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
-    sed -i 's/HOOKS=(base udev \(.*block\) /&plymouth-/' /etc/mkinitcpio.conf # create plymouth-encrypt after block hook
-  else
-    sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
-  fi
+PLYMOUTH_THEMES_DIR="$HOME/ArchTitus/configs/usr/share/plymouth/themes"
+PLYMOUTH_THEME="arch-glow" # can grab from config later if we allow selection
+mkdir -p "/usr/share/plymouth/themes"
+echo 'Installing Plymouth theme...'
+cp -rf "${PLYMOUTH_THEMES_DIR}/${PLYMOUTH_THEME}" "/usr/share/plymouth/themes"
+  
+if  [[ "${FS}" == "luks" ]]; then
+  sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
+  sed -i 's/HOOKS=(base udev \(.*block\) /&plymouth-/' /etc/mkinitcpio.conf # create plymouth-encrypt after block hook
+else
+  sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
+fi
   plymouth-set-default-theme -R arch-glow # sets the theme and runs mkinitcpio
-  echo 'Plymouth theme installed'
+echo 'Plymouth theme installed'
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -161,11 +161,12 @@ rm  $HOME/*log
 rm /home/"$USERNAME"/*log
 sudo rm -r /usr/bin/baloo*
 sudo rm -r /usr/lib/baloo*
+
 echo "Cleaning up sudoers file"
 # Remove no password sudo rights
-sed -i 's/^#%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 # Add sudo rights
-sed -i 's/^ %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Remove no password sudo rights
 #sed -i 's/^#%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
