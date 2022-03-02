@@ -5,7 +5,7 @@ autojump
 btop
 cmst
 dxvk-bin
-kvantum-theme-qogir-git
+qogir-kde-theme-git
 lineageos-devel
 mkinitcpio-firmware
 microsoft-edge-dev-bin
