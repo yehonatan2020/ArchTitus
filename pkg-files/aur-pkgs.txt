@@ -5,6 +5,7 @@ autojump
 btop
 cmst
 dxvk-bin
+qogir-gtk-theme-git
 qogir-kde-theme-git
 lineageos-devel
 mkinitcpio-firmware
