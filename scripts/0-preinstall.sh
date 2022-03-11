@@ -113,6 +113,10 @@ elif [[ "${FS}" == "f2fs" ]]; then
     mkfs.vfat -F32 -n "EFIBOOT" ${partition2}
     mkfs.f2fs -l ROOT -f ${partition3}
     mount -t f2fs ${partition3} /mnt
+elif [[ "${FS}" == "f2fs" ]]; then
+    mkfs.vfat -F32 -n "EFIBOOT" ${partition2}
+    mkfs.xfs -L ROOT -f ${partition3}
+    mount -t xfs ${partition3} /mnt
 elif [[ "${FS}" == "ext4" ]]; then
     mkfs.vfat -F32 -n "EFIBOOT" ${partition2}
     mkfs.ext4 -L ROOT ${partition3}

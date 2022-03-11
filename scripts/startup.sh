@@ -185,14 +185,15 @@ filesystem () {
 echo -ne "
 Please Select your file system for both boot and root
 "
-options=("btrfs" "f2fs" "ext4" "luks" "exit")
+options=("btrfs" "f2fs" "xfs" "ext4" "luks" "exit")
 select_option $? 1 "${options[@]}"
 
 case $? in
 0) set_option FS btrfs;;
 1) set_option FS f2fs;;
-2) set_option FS ext4;;
-3) 
+2) set_option FS xfs;;
+3) set_option FS ext4;;
+4) 
 while true; do
   echo -ne "Please enter your luks password: \n"
   read -s luks_password # read password without echo
@@ -209,7 +210,7 @@ while true; do
   fi
 done
 ;;
-4) exit ;;
+5) exit ;;
 *) echo "Wrong option please select again"; filesystem;;
 esac
 }
