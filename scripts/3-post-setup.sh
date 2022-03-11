@@ -119,6 +119,8 @@ echo "  Connection Manager enabled"
      echo "[widgetStyle=kvantum]" >> $HOME/.config/kdedefaults/kdeglobals
        kvantummanager --set Qogir-dark
    
+   sudo ln -S /usr/bin/gnome-text-editor /usr/bin/gedit
+   sudo ln -S /usr/bin/paru /usr/bin/yay
     sudo rm -r /usr/bin/baloo*
   sudo rm -r /usr/lib/baloo*
   rm -r ${HOME}/powerlevel10k
