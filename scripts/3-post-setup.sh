@@ -89,6 +89,8 @@ echo "  Connection Manager enabled"
   systemctl disable NetworkManager
 
   # services part of full installation
+  systemctl enable zramd
+  echo "    ZRAM enabled"
   systemctl enable cups
   echo "  Cups enabled"
   ntpd -qg
