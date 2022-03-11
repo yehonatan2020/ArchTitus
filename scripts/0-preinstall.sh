@@ -111,7 +111,7 @@ if [[ "${FS}" == "btrfs" ]]; then
     subvolumesetup
 elif [[ "${FS}" == "f2fs" ]]; then
     mkfs.vfat -F32 -n "EFIBOOT" ${partition2}
-    mkfs.f2fs -L ROOT ${partition3}
+    mkfs.f2fs -l ROOT ${partition3}
     mount -t ext4 ${partition3} /mnt
 elif [[ "${FS}" == "ext4" ]]; then
     mkfs.vfat -F32 -n "EFIBOOT" ${partition2}
