@@ -13,7 +13,6 @@ usbutils
 xdg-user-dirs
 --END OF MINIMAL INSTALL--
 alsa-plugins
-alsa-tools
 alsa-utils
 android-tools
 android-udev
@@ -134,7 +133,6 @@ ufw
 unclutter
 unrar
 unzip
-virt-manager
 virt-viewer
 which
 wine-gecko

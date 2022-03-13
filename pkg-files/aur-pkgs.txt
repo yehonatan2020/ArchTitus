@@ -26,6 +26,5 @@ teamviewer
 ttf-dejavu
 ttf-meslo
 youtube-dl
-vde2
 video-downloader
 zramd
