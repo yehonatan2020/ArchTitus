@@ -48,6 +48,7 @@ efibootmgr
 egl-wayland
 exfatprogs
 extra-cmake-modules
+f2fs-tools
 fakeroot
 flex
 fuse2
