@@ -9,6 +9,7 @@ earlyoom
 gnome-text-editor-git
 qogir-gtk-theme-git
 qogir-kde-theme-git
+lib32-ncurses5-compat-libs
 lineageos-devel
 mkinitcpio-firmware
 microsoft-edge-dev-bin
@@ -17,10 +18,12 @@ noto-fonts-emoji
 octopi-dev
 octopi-notifier-frameworks
 plymouth-git
+preload
 ocs-url
 sddm-nordic-theme-git
 stacer
 teamviewer
+ttf-dejavu
 ttf-meslo
 youtube-dl
 vde2
