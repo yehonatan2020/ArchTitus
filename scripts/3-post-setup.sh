@@ -84,9 +84,9 @@ echo -ne "
 -------------------------------------------------------------------------
 "
   # services part of the base installation
-  systemctl enable connman
+  systemctl enable NetworkManager
 echo "  Connection Manager enabled"
-  systemctl disable NetworkManager
+ 
 
   # services part of full installation
   systemctl enable zramd
@@ -105,9 +105,7 @@ echo "  Connection Manager enabled"
   systemctl enable apparmor
   systemctl enable fstrim.timer
   echo "   fstrim enabled"
-  systemctl enable iwd
-  echo "   iwd enabled"
-  systemctl mask wpa_supplicant
+  systemctl enable wpa_supplicant
   systemctl enable tlp
   echo "   tlp enabled"
   

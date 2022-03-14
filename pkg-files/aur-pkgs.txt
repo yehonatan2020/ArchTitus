@@ -3,7 +3,6 @@ adobe-source-sans-fonts
 adobe-source-serif-fonts
 autojump
 btop
-cmst
 dxvk-bin
 earlyoom
 gnome-text-editor-git

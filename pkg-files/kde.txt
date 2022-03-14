@@ -35,6 +35,7 @@ layer-shell-qt
 milou
 oxygen
 plasma-firewall
+plasma-nm
 plasma-pa
 plasma-wayland-session
 powerdevil
