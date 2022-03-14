@@ -24,6 +24,7 @@ ocs-url
 sddm-nordic-theme-git
 stacer
 teamviewer
+tela-circle-icon-theme-git
 ttf-dejavu
 ttf-meslo
 youtube-dl

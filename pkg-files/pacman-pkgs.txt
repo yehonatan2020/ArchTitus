@@ -66,6 +66,7 @@ gsmartcontrol
 gst-libav
 gst-plugins-good
 gst-plugins-ugly
+guake
 handbrake
 haveged
 hplip
