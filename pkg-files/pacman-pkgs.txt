@@ -55,6 +55,8 @@ fuse3
 fuseiso
 gamemode
 gcc
+gedit
+gedit-plugins
 gimp
 git
 gnome-contacts

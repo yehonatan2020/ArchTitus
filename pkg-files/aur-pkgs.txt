@@ -5,7 +5,6 @@ autojump
 btop
 dxvk-bin
 earlyoom
-gnome-text-editor-git
 qogir-gtk-theme-git
 qogir-kde-theme-git
 lib32-ncurses5-compat-libs
