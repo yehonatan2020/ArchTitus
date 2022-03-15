@@ -10,6 +10,7 @@ qogir-gtk-theme-git
 qogir-kde-theme-git
 lib32-ncurses5-compat-libs
 libxcrypt-compat
+libvoikko
 lineageos-devel
 mkinitcpio-firmware
 microsoft-edge-dev-bin
@@ -27,6 +28,7 @@ teamviewer
 tela-circle-icon-theme-git
 ttf-dejavu
 ttf-meslo
+xcursor-we10xos
 youtube-dl
 video-downloader
 zramd
