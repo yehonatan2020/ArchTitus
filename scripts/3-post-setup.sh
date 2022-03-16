@@ -84,7 +84,7 @@ echo -ne "
 -------------------------------------------------------------------------
 "
   # services part of the base installation
-  systemctl enable NetworkManager
+  systemctl enable connman
 echo "  Connection Manager enabled"
  
 
@@ -105,19 +105,23 @@ echo "  Connection Manager enabled"
   systemctl enable apparmor
   systemctl enable fstrim.timer
   echo "   fstrim enabled"
-  systemctl enable wpa_supplicant
+  systemctl disable NetworkManager
+  systemctl mask wpa_supplicant
   systemctl enable tlp
+  echo "   tlp enabled"
+  systemctl enable earlyoom
   echo "   tlp enabled"
   
   sudo rm $HOME/.config/kdedefaults/kdeglobals
   touch $HOME/.config/kdedefaults/kdeglobals
   echo "[General]" >> $HOME/.config/kdedefaults/kdeglobals
-  echo "ColorScheme=BreezeDark" >> $HOME/.config/kdedefaults/kdeglobals
+  echo "ColorScheme=QogirDark" >> $HOME/.config/kdedefaults/kdeglobals
    echo "[Icons]" >> $HOME/.config/kdedefaults/kdeglobals
-   echo "Theme=breeze-dark" >> $HOME/.config/kdedefaults/kdeglobals
+   echo "Theme=Tela-circle" >> $HOME/.config/kdedefaults/kdeglobals
     echo "[KDE]" >> $HOME/.config/kdedefaults/kdeglobals
      echo "[widgetStyle=kvantum]" >> $HOME/.config/kdedefaults/kdeglobals
-       kvantummanager --set Qogir-dark
+      
+kvantummanager --set Qogir-dark
    
    sudo ln -S /usr/bin/gnome-text-editor /usr/bin/gedit
    sudo ln -S /usr/bin/paru /usr/bin/yay
