@@ -142,7 +142,6 @@ ufw
 unclutter
 unrar
 unzip
-virt-viewer
 which
 wine-gecko
 wine-mono
