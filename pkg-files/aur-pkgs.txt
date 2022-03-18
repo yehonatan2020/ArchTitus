@@ -2,6 +2,7 @@
 adobe-source-sans-fonts
 adobe-source-serif-fonts
 autojump
+bluetooth-autoconnect
 btop
 dxvk-bin
 earlyoom
@@ -26,7 +27,6 @@ stacer
 teamviewer
 tela-circle-icon-theme-git
 ttf-dejavu
-ttf-meslo
 xcursor-we10xos
 youtube-dl
 video-downloader

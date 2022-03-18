@@ -84,7 +84,7 @@ echo -ne "
 -------------------------------------------------------------------------
 "
   # services part of the base installation
-  systemctl enable connman
+  systemctl enable NetworkManager
 echo "  Connection Manager enabled"
  
 
@@ -94,23 +94,22 @@ echo "  Connection Manager enabled"
   systemctl enable cups
   echo "  Cups enabled"
   ntpd -qg
-  systemctl enable ntpd.service
+  systemctl enable ntpd
   echo "  NTP enabled"
-  systemctl disable dhcpcd.service
+  systemctl disable dhcpcd
   echo "  DHCP disabled"
-  systemctl stop dhcpcd.service
+  systemctl stop dhcpcd
   echo "  DHCP stopped"
   systemctl enable bluetooth
   echo "  Bluetooth enabled"
   systemctl enable apparmor
   systemctl enable fstrim.timer
   echo "   fstrim enabled"
-  systemctl disable NetworkManager
-  systemctl mask wpa_supplicant
+  systemctl enable wpa_supplicant
   systemctl enable tlp
   echo "   tlp enabled"
   systemctl enable earlyoom
-  echo "   tlp enabled"
+  echo "   earlyoom enabled"
   
   sudo rm $HOME/.config/kdedefaults/kdeglobals
   touch $HOME/.config/kdedefaults/kdeglobals
