@@ -27,6 +27,7 @@ stacer
 teamviewer
 tela-circle-icon-theme-git
 ttf-dejavu
+ttf-tahoma
 xcursor-we10xos
 youtube-dl
 video-downloader
